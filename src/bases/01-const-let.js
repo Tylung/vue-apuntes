@@ -1,6 +1,4 @@
-
 // console.log('Hola Dev!')
-
 const nombre   = 'Tony'
 const apellido = 'Stark'
 

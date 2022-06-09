@@ -36,5 +36,3 @@ const createHero = ({ id = 123232, name = 'Peter', age = 20, codeName = 'SpiderM
 
 
 console.log(createHero(person));
-
-

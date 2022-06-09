@@ -1,5 +1,3 @@
-
-
 console.log('Hola Dev!')
 
 const nombre = 'Tulip'

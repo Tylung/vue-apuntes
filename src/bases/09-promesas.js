@@ -12,8 +12,6 @@ import { getHeroById } from './bases/08-imp-exp'
 // // inmediatamente pero la resolucion 
 // // en una pila diferente
 
-
-
 // console.log('Final');
 
 const getHeroByIdAsync = ( id ) => {

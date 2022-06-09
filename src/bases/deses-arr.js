@@ -4,7 +4,6 @@
 const characters = [ 'Loki', 'Batman', 'Superman', 'Spiderman', 'Ironman']
 
 const [ Loki, Batman, Superman, Spiderman, Ironman = 'No tiene valor' ] = characters
-// const Batman = characters[1]
 
 console.log({Loki});
 console.log({Batman});

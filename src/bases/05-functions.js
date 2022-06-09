@@ -1,4 +1,3 @@
-
 // console.log('Hola Dev!')
 
 const { toIdentifier } = require("webpack/lib/Template")
@@ -11,7 +10,6 @@ const saludar = function (nombre) {
 }
 
 const saludar2 = (nombre = 'Tony') => `Hola ${nombre}`
-
 
 const nombre = 'Peter'
 

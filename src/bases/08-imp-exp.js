@@ -1,7 +1,5 @@
-
 // import { owners } from './data/heroes'
 import {heroes} from '../data/heroes'
-
 
 // getHeroById ( id ) 
 // funciones de Flecha
