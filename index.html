@@ -8,14 +8,12 @@
     
     <!-- Control absoluto de Vue de este Div -->
     <div id="myApp">
-        <!-- <h1>Hola Mundo</h1> -->
-        <h3> {{ quote }} </h3>
-        <blockquote> -{{ author }} </blockquote>
-        
-        
-        <button v-on:click="changeQuote">
-            Change quote
-        </button>
+        <h1>Batman Quotes</h1>
+
+        <ul>
+            <li v-for="quote in quotes"> autor </li>
+        </ul>
+
     </div>
     
     
