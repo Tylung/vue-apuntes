@@ -8,7 +8,7 @@ const app = Vue.createApp({
         <h1> {{ 2 + 2 }} </h1>
         <h2> {{ undefined }} </h2>
         <h3> {{ !true }} </h3>
-        ⭐ <p> {{ true ? 'Activo' : 'Inactivo' }} </p>
+        ✅ <p> {{ true ? 'Activo' : 'Inactivo' }} </p>
         ❌ <p> {{ if(true) {'Activo' : 'Inactivo'} }} </p>
     `
 })
@@ -21,7 +21,7 @@ Para tener el html de la aplicacion en el html podemos hacer
 ```html
 <div id="myApp">
         <h1>Hola Mundo</h1> 
-        <p> {{ !true }} </p> ⭐
+        <p> {{ !true }} </p> ✅
 </div>
 
 {{ 1 + 1  }} ❌
