@@ -12,9 +12,11 @@ const giphyApi = axios.create({
     }
 })
 
+export default giphyApi
+
 // giphyApi.get('/random').then( resp => {
-//     // console.log(resp.data.data.images.original.url)
-//     // const url = resp.data.data.images.original.url
+    // console.log(resp.data.data.images.original.url)
+    // const url = resp.data.data.images.original.url
 //     const { data } = resp.data 
 //     const { url } = data.images.original
 //     console.log(url);

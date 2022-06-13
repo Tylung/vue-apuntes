@@ -1,6 +1,5 @@
 // console.log('Hola Dev!')
 
-const { toIdentifier } = require("webpack/lib/Template")
 
 // function saludar( nombre ) {
 // return `Hola ${ nombre }`
