@@ -2,7 +2,7 @@
 
 ## Project setup
 ```sh
-cd 03--fundamentos
+cd 03-fundamentos
 ```
 
 ```
