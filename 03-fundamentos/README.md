@@ -1,10 +1,6 @@
-# 03-Fundamentos de Vue.js
+# 03-fundamentos
 
 ## Project setup
-```sh
-cd 03--fundamentos
-```
-
 ```
 npm install
 ```
@@ -26,4 +22,3 @@ npm run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
