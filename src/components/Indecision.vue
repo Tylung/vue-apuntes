@@ -1,23 +1,69 @@
 <template>
-  <img src="https://via.placeholder.com/250" alt="bg">
+  <img v-if="img" :src="img" alt="bg">
   <div class="gb-dark"></div>
   <div class="indecision-container">
-    
-    <input type="text" placeholder="Hazme una pregunta">
-    <p>Recuerda terminar con un signo de interrogación ( ? )</p>
+      <h1>Indecision</h1>
+      <input
+      type="text"
+      placeholder="Hazme una pregunta"
+      v-model="question">    
+      <p>Recuerda terminar con un signo de interrogación ( ? )</p>
 
-  </div>
+    <div v-if="isValidQuestion">
+        <h2 >{{ question }}</h2>
+        <h1> {{ answer }} </h1>
+    </div>
 
-  <div>
-    <h2>Seré millonario?</h2>
-    <h1>Si, No, ... pensando </h1>
   </div>
 
 </template>
 
 <script>
 export default {
-  
+    data() {
+        return {
+            question: null,
+            answer: null,
+            img: null,
+            isValidQuestion: false
+        }
+    },
+    methods: {
+        async getAnswer() {
+            this.answer = 'Pensando...'
+
+            let { answer, image } = await fetch('https://yesno.wtf/api')
+                .then( r => r.json() )
+
+            // answer === 'yes' ? answer = 'Si!' 
+            // : answer === 'no' ? answer = 'No!' : 
+            // answer === 'maybe' ? answer = 'Tal vez' : answer = answer
+            const answers = {
+                yes:'Si!',
+                no:'No!',
+                maybe:'Tal vez'
+            }
+
+            answer = answers[answer]
+
+            this.answer = answer
+            
+            this.img = image
+        }
+    },
+    watch: {
+        question( value, oldValue ){
+
+            this.isValidQuestion = false
+
+            if ( !value.includes('?')) return
+
+            this.isValidQuestion = true
+
+            this.getAnswer()
+            // TODO: Realizar petición http
+        }
+    }
 }
 </script>
 
