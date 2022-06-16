@@ -3,7 +3,7 @@
   <h2> {{ customTitle }} </h2>
   <p> {{ counter }} <sup>2</sup> = {{ counter * counter }} </p>
 
-    <div>
+    <div class="buttons-container">
         <button v-on:click="increase"> +1 </button>
         <!-- Ambos son sinonimos -->
         <button @click="decrease"> -1 </button>
