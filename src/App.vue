@@ -1,19 +1,16 @@
 <template>
-
-  <Indecision />
-
+  <img class="fade-in" alt="Vue logo" src="./assets/logo.png">
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script>
-
-import Indecision from './components/Indecision.vue'
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-   name: 'App',
-   components: {
-    // Counter,
-    Indecision,
-   }
+  name: 'App',
+  components: {
+    HelloWorld
+  }
 }
 </script>
 
