@@ -2,6 +2,7 @@
 <template>
   <h2> {{ customTitle }} </h2>
   <p> {{ counter }} <sup>2</sup> = {{ counter * counter }} </p>
+  <p data-test-id="counter"> {{ counter }} </p>
 
     <div class="buttons-container">
         <button v-on:click="increase"> +1 </button>
