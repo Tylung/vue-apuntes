@@ -12,7 +12,10 @@ describe('Indecision Component', () => {
         json: () => Promise.resolve({
             answer: 'yes',
             forced: false,
-            image: 'https://yesno.wtf/assets/yes/12-e4f57c8f172c51fdd983c2837349f853.gif'
+            image: 'https://yesno.wtf/assets/yes/2.gif'
+            // "answer": "no",
+            // "forced": false,
+            // "image": "https://yesno.wtf/assets/yes/2.gif"
         })
     }))  
 
@@ -50,20 +53,38 @@ describe('Indecision Component', () => {
         expect( getAnswerSpy ).toHaveBeenCalled()
     })
 
-    test('pruebas en getAnswer', async () => {
+    test('pruebas en getAnswer si recibe Yes', async () => {
         await wrapper.vm.getAnswer()
 
-        // console.log( wrapper.vm.img );
-        // console.log( wrapper.vm.answer );
         const img = wrapper.find('img')
 
         expect( img.exists() ).toBeTruthy()
-        expect( wrapper.vm.img ).toBe('https://yesno.wtf/assets/yes/12-e4f57c8f172c51fdd983c2837349f853.gif')
+        expect( wrapper.vm.img ).toBe('https://yesno.wtf/assets/yes/2.gif')
         expect( wrapper.vm.answer ).toBe('Si!')
     })
 
-    test('pruebas en getAnswer - fallo en el API', () => {
+    test('pruebas en getAnswer si recibe No', async () => {
+        await wrapper.vm.getAnswer()
+
+        const img = wrapper.find('img')
+
+        // expect( img.exists() ).toBeTruthy()
+        // expect( wrapper.vm.img ).toBe('https://yesno.wtf/assets/no/2.gif')
+        // expect( wrapper.vm.answer ).toBe('No!')
+    })
+
+    test('pruebas en getAnswer - fallo en el API', async () => {
+
         
+        fetch.mockImplementationOnce( () => Promise.reject('API is down :C'))
+
+        await wrapper.vm.getAnswer()
+
+        const img = wrapper.find('img')
+
+
+        expect( img.exists() ).toBeFalsy()
+        expect( wrapper.vm.answer ).toBe('No se pudo cargar del API')
     })
 }) 
 

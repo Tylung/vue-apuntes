@@ -30,25 +30,31 @@ export default {
     },
     methods: {
         async getAnswer() {
-            this.answer = 'Pensando...'
+            
+            try {
 
-            let { answer, image } = await fetch('https://yesno.wtf/api')
-                .then( r => r.json() )
-
-            // answer === 'yes' ? answer = 'Si!' 
-            // : answer === 'no' ? answer = 'No!' : 
-            // answer === 'maybe' ? answer = 'Tal vez' : answer = answer
-            const answers = {
-                yes:'Si!',
-                no:'No!',
-                maybe:'Tal vez'
+                this.answer = 'Pensando...'
+                let { answer, image } = await fetch('https://yesno.wtf/api')
+                    .then( r => r.json() )
+    
+                const answers = {
+                    yes:'Si!',
+                    no:'No!',
+                    maybe:'Tal vez'
+                }
+    
+                answer = answers[answer]
+    
+                this.answer = answer
+                
+                this.img = image
+                
+            } catch (error) {
+                console.log('IndecisionComponent:', error )
+                this.answer = 'No se pudo cargar del API'
+                this.img = null
             }
 
-            answer = answers[answer]
-
-            this.answer = answer
-            
-            this.img = image
         }
     },
     watch: {
