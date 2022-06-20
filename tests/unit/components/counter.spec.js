@@ -4,7 +4,7 @@ import Counter from '@/components/Counter'
 
 describe('Counter Component', () => {
 
-    let wrapper = 
+    let wrapper 
 
 
     beforeEach( () => {
