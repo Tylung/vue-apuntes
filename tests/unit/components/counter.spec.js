@@ -3,13 +3,6 @@ import Counter from '@/components/Counter'
 // el @ hace referencia a la raiz del proyecto
 
 describe('Counter Component', () => {
-    // test('debe hacer match con el snapshot', () => {
-
-    //     const wrapper = shallowMount( Counter )
-
-    //     expect( wrapper.html() ).toMatchSnapshot()
-
-    // })
 
     test('h2 debe tener el valor por defecto "Counter"', () => {
 
@@ -24,15 +17,32 @@ describe('Counter Component', () => {
 
 
     test('el valor por defecto debe de ser 100 en el p', () => {
-        // wrapper 
         const wrapper = shallowMount( Counter )
-        // ptags
-        // const ptags = wrapper.findAll('p')
-        // expect segundo p === 100
-        // const p2 = ptags[1]
-        // expect( p2.text() ).toBe('100')
         const value = wrapper.find( '[data-test-id="counter"]' ).text()
         expect( value ).toBe('100')
+    })
+
+
+    test('debe de incrementar y decrementar el valor del contador', async () => {
+        const wrapper = shallowMount( Counter )
+        
+        const increaseBtn = wrapper.find('button')
+
+        await increaseBtn.trigger('click')
+        await increaseBtn.trigger('click')
+        await increaseBtn.trigger('click')
+
+        let value = wrapper.find( '[data-test-id="counter"]' ).text()
+
+        // TODO: Tarea
+        const decreaseBtn = wrapper.findAll('button')[1]
+
+        await decreaseBtn.trigger('click')
+        await decreaseBtn.trigger('click')
+
+        
+        value = wrapper.find( '[data-test-id="counter"]' ).text()
+        expect( value ).toBe('101')
     })
 })
 
