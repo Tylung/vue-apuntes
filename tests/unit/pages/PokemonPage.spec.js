@@ -1,6 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonPage from '@/pages/PokemonPage';
 import { pokemons } from '../mocks/pokemons.mock';
+import getPokemonOptions, { getPokemonNames } from '@/helpers/getPokemonOptions';
 
 
 describe('PokemonPage Component', () => {
@@ -8,11 +9,10 @@ describe('PokemonPage Component', () => {
     let wrapper
     // let mixPokemonArraySpy
 
-    beforeEach( () => {
+    beforeEach( async () => {
         // mixPokemonArraySpy = jest.spyOn( PokemonPage.methods, 'mixPokemonArray' )
         wrapper = shallowMount( PokemonPage )
-    })
-
+    })    
 
     test('debe de hacer match con el snapshot', () => {
         // wrapper = shallowMount( PokemonPage )
@@ -77,6 +77,37 @@ describe('PokemonPage Component', () => {
         
     })
 
+
+    test('pruebas con check answer', async () => {
+
+        const wrapper = shallowMount( PokemonPage,  {
+            data() {
+                return {
+                    pokemonArr: pokemons,
+                    pokemon: pokemons[2],
+                    showPokemon: false,
+                    showAnswer: false,
+                    message: '',
+                }
+            }
+        })
+
+        await wrapper.vm.checkAnswer(151)
+
+        expect( wrapper.find('h2').exists() ).toBeTruthy()
+
+        expect( wrapper.vm.showPokemon ).toBeTruthy()
+        expect( wrapper.vm.showAnswer ).toBeTruthy()
+        expect( wrapper.find('h2').text() ).toBe(`Has Acertado es ${ pokemons[2].name }`)
+
+        // para que esta ultima prueba pase se tiene que comentar en el pokemonPage las lineas 57,58 y 59 o crear una nueva instancia
+        
+        // await wrapper.vm.checkAnswer(1)
+
+        // expect( wrapper.vm.message ).toBe(`Fallaste el pokemon era ${ pokemons[2].name }`)
+
+        
+    })
 
 
 })
