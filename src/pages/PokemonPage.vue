@@ -26,7 +26,7 @@
         <div class="resp-container" v-if="showAnswer">
             <h2 class="fade-in">{{ message }}</h2>
             <button class="fade-in" @click="newGame"> 
-               {{ buttonText }}
+               {{ buttonText ? buttonText : 'Siguiente Pokemon' }}
             </button>
         </div>
       
@@ -103,21 +103,25 @@ export default {
     mounted() {
         this.mixPokemonArray()
     },
-    updated() {
-        if( this.lifes === 0 ){
-            this.message = `Has perdido el juego, tu puntaje ha sido de ${ this.score }`  
-            this.lifes = 3
-            this.show = false
-            this.pokemon.isDisable
-        } 
-        if( this.show === false ){
-            this.buttonText = 'Nuevo Juego'
-            if ( this.highScore < this.score ){
-                this.guardarHighScore()
+    watch: {
+        lifes(){
+            if( this.lifes === 0 ){
+                this.message = `Has perdido el juego, tu puntaje ha sido de ${ this.score }`  
+                this.lifes = 3
+                this.show = false
+                this.pokemon.isDisable
             }
-            this.score = 0
-        } else {
-            this.buttonText = 'Siguiente Pokemon'
+        },
+        show() {
+            if( this.show === false ){
+                this.buttonText = 'Nuevo Juego'
+                if ( this.highScore < this.score ){
+                    this.guardarHighScore()
+                }
+                this.score = 0
+            } else {
+                this.buttonText = 'Siguiente Pokemon'
+            }
         }
     }
 }
