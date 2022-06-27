@@ -1,16 +1,12 @@
 <template>
-  <PokemonPage />
-  
+  <img alt="Vue logo" src="./assets/logo.png">
 </template>
 
 <script>
-import PokemonPage from './pages/PokemonPage'
 
 export default {
   name: 'App',
-  components: {
-    PokemonPage,
-}
+  components: { }
 }
 </script>
 
