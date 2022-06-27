@@ -1,14 +1,18 @@
 <template>
+  <NavBar />
   <img alt="Vue logo" src="./assets/logo.png">
   <router-view />
 </template>
 
 <script>
 
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'App',
-  components: {}
+  components: {
+    NavBar:  defineAsyncComponent(() => import(/* webpackChunkName: "NavBar"*/ '@/modules/shared/components/NavBar.vue') )
+  }
 }
 </script>
 
@@ -21,4 +25,10 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
 </style>
