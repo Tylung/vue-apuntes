@@ -3,7 +3,7 @@
 
     <div>
         <router-link to="/">PokemonList</router-link>
-        <router-link to="/id">Pokemon by Id</router-link>
+        <router-link :to="{name:'pokemon-id', params: { id: 1 }}">Pokemon by Id</router-link>
         <router-link to="/about">About</router-link>
     </div>
 
