@@ -1,5 +1,11 @@
 # pokemon-game
 
+Production App 
+
+https://whoisthatpokemon-game.netlify.app/
+
+Enjoy the pokemon game :grinning:
+
 ## Project setup
 ```
 npm install
