@@ -14,16 +14,18 @@ export default {
 
     data() {
         return {
-            id: null
+            // id: this.$route.params.pokemonid
         }
     },
     
     created() {
-        const { pokemonid } = this.$route.params
+        // const { pokemonid } = this.$route.params
 
-        console.log(pokemonid)
+        // console.log(pokemonid)
 
-        this.id = pokemonid
+        // this.id = pokemonid
+        console.log(this.$props);
+        console.log(this.$attrs)
     }
 
 }
