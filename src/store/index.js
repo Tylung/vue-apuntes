@@ -18,7 +18,7 @@ export default createStore({
         },
         incrementBy( state, val) {
             state.count += val
-            state.lastMutation = 'íncrementBy'
+            state.lastMutation = 'íncrementBy ' + val
             state.lastRandomInt = val
         },
 
