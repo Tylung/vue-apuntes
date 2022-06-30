@@ -21,16 +21,25 @@ export default createStore({
             state.lastMutation = 'íncrementBy ' + val
             state.lastRandomInt = val
         },
-
+        setLoading(state,  boolean ) {
+            boolean 
+                ? state.isLoading = true
+                : state.isLoading = false
+            
+            state.lastMutation = 'SetLoading ' + boolean
+        }
     },
 
     actions: {
-        async incrementRandomInt( context ) {
+        async incrementRandomInt({ commit }) {
+
+            commit('setLoading', true)
 
             const randomInt = await getRandomInt()
+            commit('incrementBy', randomInt )
 
-            context.commit('incrementBy', randomInt )
-
+            commit('setLoading', false)
+        
         }
     }
 })
