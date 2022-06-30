@@ -1,53 +1,15 @@
-import getRandomInt from '../../helpers/getRandomInt'
+import state from './state'
+import * as mutations from './mutations'
+import * as actions from './actions'
+import * as getters from './getters'
 
 
 const counterStore = {
     namespaced: true,
-    state: () => ({
-        count: 1,
-        lastMutation: 'none',
-        isLoading: false,
-        lastRandomInt: 0
-    }),
-    // la funcion de flecha convierte esta parte del objeto en reactiva
-
-    mutations: {
-        increment( state ) {
-            state.count++
-            state.lastMutation = 'íncrement'
-        },
-        incrementBy( state, val) {
-            state.count += val
-            state.lastMutation = 'íncrementBy ' + val
-            state.lastRandomInt = val
-        },
-        setLoading(state,  boolean ) {
-            boolean 
-                ? state.isLoading = true
-                : state.isLoading = false
-            
-            state.lastMutation = 'SetLoading ' + boolean
-        }
-    },
-
-    actions: {
-        async incrementRandomInt({ commit }) {
-
-            commit('setLoading', true)
-
-            const randomInt = await getRandomInt()
-            commit('incrementBy', randomInt )
-
-            commit('setLoading', false)
-        
-        }
-    },
-
-    getters: {
-        squareCount( state ) {
-            return state.count * state.count
-        }
-    },
+    state,
+    mutations,
+    actions,
+    getters,
 } 
 
 
