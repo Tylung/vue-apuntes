@@ -1,6 +1,6 @@
 <template>
     <h1> Counter - Vuex 👾 </h1>
-    <h2> Direct access: {{ $store.state.count }} </h2>
+    <h2> Direct access: {{ $store.state.counter.count }} </h2>
     <h2> Computed: {{ countComputed }} </h2>
 
     <button @click="increment">increment +1</button>
@@ -23,9 +23,9 @@ export default {
     
     computed: {
         countComputed() {
-            return this.$store.state.count
+            return this.$store.state.counter.count
         },
-        ...mapState(['count', 'lastMutation', 'isLoading'])
+        ...mapState( 'counter', ['count', 'lastMutation', 'isLoading'])
         // ...mapState({
             //     count: state => state.count,
         //     lastMutation: state => state.lastMutation
@@ -35,13 +35,14 @@ export default {
 
     methods: {
             increment() {
-                this.$store.commit('increment')
+                this.$store.commit('counter/increment')
             },
             incrementBy( ) {
-                this.$store.commit('incrementBy', 5)
+                this.$store.commit('counter/incrementBy', 5)
                 // this.randomInt()
             },
-            ...mapActions({
+            // ...mapActions('counter', ['incrementRandomInt'])
+            ...mapActions( 'counter', {
                 randomInt: 'incrementRandomInt'
             })
         }
