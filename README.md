@@ -1,4 +1,4 @@
-# vuex-bases
+# journal-app
 
 ## Project setup
 ```
