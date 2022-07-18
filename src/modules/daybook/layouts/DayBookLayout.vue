@@ -3,7 +3,7 @@
 
     <div class="d-flex">
         <div class="col-4">
-            <EntryLIst/>
+            <EntryList/>
         </div>
         <div class="col">
             <router-view />
@@ -18,7 +18,7 @@ import { defineAsyncComponent } from 'vue'
 export default {
     components: {
     Navbar: defineAsyncComponent(() => import("../components/Nav-bar.vue")),
-    EntryLIst: defineAsyncComponent(() => import('../components/Entry-LIst.vue'))
+    EntryList: defineAsyncComponent(() => import('../components/Entry-List.vue'))
 }
 }
 
