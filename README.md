@@ -1,4 +1,4 @@
-# journal-app
+# Crud Vuex - Journal App
 
 ## Project setup
 ```
