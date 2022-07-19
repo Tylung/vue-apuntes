@@ -22,7 +22,19 @@ export const loadEntries = async ({ commit }) => {
 }
 
 
-export const updateEntry = async (/*{ commit }*/) => {
+export const updateEntry = async ({ commit }, entry) => { // ! entry como param
+
+    const { text, date, picture} = entry
+    const dataToSave = {
+        date,
+        text,
+        picture
+    }
+    // *  extraer solo lo que necesitan ❌ id
+    const resp = await journalApi.put(`/entries/${ entry.id }.json`, dataToSave)
+    // * await journelApi.put( path.json, data to save)
+    // ? commit mutation updateEntry
+    commit('updateEntry', { ...entry});
 
 }
 
