@@ -42,11 +42,12 @@
     </div>
 
 
-    <!-- <img 
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCMewPjbNgvumNp6X5p_qAZt1DO_SAfx4tag&usqp=CAU" 
+    <img 
+        v-if="entry.picture && !localImage"
+        :src="entry.picture" 
         alt="entry-picture"
         class="img-thumbnail"
-        > -->
+        >
     <img 
         v-if="localImage"
         :src="localImage" 
@@ -65,8 +66,10 @@
 <script>
 import { defineAsyncComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
-import getDayMonthYear from '../helpers/getDayMonthYear'
 import Swal from 'sweetalert2'
+
+import getDayMonthYear from '../helpers/getDayMonthYear'
+import uploadImage from '../helpers/uploadImage';
 
 export default {
     props: {
@@ -130,6 +133,10 @@ export default {
             })
 
             Swal.showLoading()
+
+            const picture = await uploadImage( this.file )
+
+            this.entry.picture = picture;
             // console.log('Guardando entrada')
             if ( this.entry.id ){
                 //Actualizar
@@ -142,6 +149,9 @@ export default {
                 this.$router.push({ name: 'entry', params: { id  } })
             }
             // Action del journal module
+            this.file = null
+            this.localImage = null
+
             Swal.fire('Guardado', 'Entrada registrada con Exito!', 'success')
         },
         async onDeleteEntry() {
