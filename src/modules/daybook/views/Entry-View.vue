@@ -51,6 +51,7 @@
 import { defineAsyncComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import getDayMonthYear from '../helpers/getDayMonthYear'
+import Swal from 'sweetalert2'
 
 export default {
     props: {
@@ -105,6 +106,13 @@ export default {
             this.entry = entry
         },
         async saveEntry() {
+
+            new Swal({
+                title: 'Espere por favor',
+                allowOutsideClick: false
+            })
+
+            Swal.showLoading()
             // console.log('Guardando entrada')
             if ( this.entry.id ){
                 //Actualizar
@@ -117,14 +125,30 @@ export default {
                 this.$router.push({ name: 'entry', params: { id  } })
             }
             // Action del journal module
+            Swal.fire('Guardado', 'Entrada registrada con Exito!', 'success')
         },
         async onDeleteEntry() {
             // console.log('delete', this.entry);
-            await this.deleteEntry( this.entry.id )
+            const { isConfirmed } = await Swal.fire({
+                title: 'Esta seguro?',
+                text: 'Una vez borrado no se puede recuperar',
+                showDenyButton: true,
+                confirmButtonText: 'Si, estoy seguro'
+            })
 
-            this.$router.push({ name: 'no-entry' })
-            // redireccionar al usuario fuera de aquí..
-            // entry
+            if ( isConfirmed ){
+                new Swal({
+                    title: 'Espere por favor',
+                    allowOutsideClick: false
+                })
+                Swal.showLoading()
+                await this.deleteEntry( this.entry.id )
+                // redireccionar al usuario fuera de aquí..
+                this.$router.push({ name: 'no-entry' })
+
+                Swal.fire('Eliminado con exito!', '', 'success')
+            }
+
         }
 
     },
