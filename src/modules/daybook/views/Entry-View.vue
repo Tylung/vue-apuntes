@@ -10,8 +10,11 @@
 
         <div>
 
-            <input type="file" 
-                    @change="onSelectImage">
+            <input type="file"
+                    v-show="false" 
+                    accept="image/png, image/jpeg"
+                    @change="onSelectImage"
+                    ref="imageSelector">
 
             <button class="btn btn-danger mx-2"
                 v-if="entry.id"
@@ -21,7 +24,7 @@
             </button>
 
             <button class="btn btn-primary"
-                >
+                @click="searchFilesImg">
                 Subir foto
                 <i class="fa fa-upload"></i>
             </button>
@@ -177,6 +180,11 @@ export default {
             const fr = new FileReader()
             fr.onload = () => this.localImage = fr.result
             fr.readAsDataURL( file )
+
+        },
+        searchFilesImg() {
+            // simular el click
+            this.$refs.imageSelector.click()
 
         }
 
