@@ -9,7 +9,9 @@
         </div>
 
         <div>
-            <button class="btn btn-danger mx-2">
+            <button class="btn btn-danger mx-2"
+                v-if="entry.id"
+                @click="onDeleteEntry">
                 Borrar
                 <i class="fa fa-trash-alt"></i>
             </button>
@@ -85,19 +87,46 @@ export default {
     },
 
     methods: {
-        ...mapActions('journal', ['updateEntry']),
+        ...mapActions('journal', ['updateEntry', 'createEntry', 'deleteEntry']),
         loadEntry(  ) {
-            const entry = this.getEntryById( this.id )
-            if ( !entry ) return this.$router.push({ name: 'no-entry' })
+
+            let entry;
+
+            if( this.id == 'new' ){
+                entry = {
+                    text: '',
+                    date: new Date().getTime()
+                }
+            } else {
+                entry = this.getEntryById( this.id )
+                if ( !entry ) return this.$router.push({ name: 'no-entry' })
+            }
 
             this.entry = entry
         },
         async saveEntry() {
             // console.log('Guardando entrada')
-
+            if ( this.entry.id ){
+                //Actualizar
+                await this.updateEntry( this.entry )
+            } else {
+                //Crear una nueva entrada
+                // action createEntry
+                const id = await this.createEntry( this.entry )
+                // redirect => entry, param: id
+                this.$router.push({ name: 'entry', params: { id  } })
+            }
             // Action del journal module
-            await this.updateEntry( this.entry )
+        },
+        async onDeleteEntry() {
+            // console.log('delete', this.entry);
+            await this.deleteEntry( this.entry.id )
+
+            this.$router.push({ name: 'no-entry' })
+            // redireccionar al usuario fuera de aquí..
+            // entry
         }
+
     },
 
     created() {

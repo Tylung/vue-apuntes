@@ -4,7 +4,9 @@
         No hay nada seleccionado
     </h1>
   </div>
-  <FabBtn />
+  <FabBtn 
+    @on:click="createNewEntry"
+  />
 </template>
 
 <script>
@@ -13,7 +15,12 @@ import { defineAsyncComponent } from 'vue';
 export default {
   components: {
     FabBtn: defineAsyncComponent(() => import("../components/Float-Btn.vue")),
-}
+  },
+  methods: {
+    createNewEntry() {
+      this.$router.push({ name: 'entry', params: { id: 'new' } })
+    }
+  }
 }
 </script>
 
