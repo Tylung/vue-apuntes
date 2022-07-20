@@ -168,8 +168,47 @@ describe('Vuex - Pruebas en el Journal Module', () => {
             text: "Hola Mundo desde mock data",
         })
         
+    })
+
+    test('Actions: createEntry & deleteEntry', async () => {
+
+        // crear store
+        const store = createVuexStore( journalState )
+
+        // newEntry = { date: 1658249409075, text: "Nueva entrada desde lasp pruebas" }
+        const newEntry = {
+            date: 1658249409075,
+            text: "Nueva entrada desde las pruebas"
+        }
+
+        // dispatch de la accion createEntry
+        const id = await store.dispatch('journal/createEntry', newEntry)
+        
+        //expects
+        // obtener el id de la nueva entrada -mfdaf342 ! firebase
+        expect( typeof( id )  ).toBe('string')
+        // el id debe ser un string
+
+        // la nueva entrada debe de existir en el state..journal.entries
+        let entries = store.state.journal.entries
+        let nEntry = entries.find( e => e.id === id )
+        expect( nEntry ).toBeTruthy()
+        expect( entries.length ).toBe( 4 )
+
+
+        // #2 parte
+        // dispatch deleteEntry
+        await store.dispatch('journal/deleteEntry', id)
+        entries = store.state.journal.entries
+        nEntry = entries.find( e => e.id === id )
+        // la nueva entrada no debe de existir en el state..journal.entries
+        expect( nEntry ).toBeFalsy()
+
+        expect( entries.length ).toBe( 3 )
+
         
     })
+    
 
     
 })
