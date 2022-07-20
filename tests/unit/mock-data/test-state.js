@@ -12,6 +12,12 @@ export const journalState = {
             id: "-N7MfT4vJBFvFMitZz10",
             picture: "https://res.cloudinary.com/drelgczps/image/upload/v1658254647/qx9upuzaxttyjzj9duwq.jpg",
             text: "Hola Mundo!"
+        },
+        {
+            id: "-N7MMYEH-tehVh8kstQd",
+            date: 1658249409075,
+            text: "Entrada desde Firebase"
         }
+
     ]
 }

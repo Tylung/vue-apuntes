@@ -36,10 +36,10 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         const journal = store.state.journal
 
         store.commit('journal/setEntries', journalState.entries)
-        expect( journal.entries.length ).toBe( 2 )
+        expect( journal.entries.length ).toBe( 3 )
         
         store.commit('journal/setEntries', journalState.entries)
-        expect( journal.entries.length ).toBe( 4 )
+        expect( journal.entries.length ).toBe( 6 )
 
         expect( journal.isLoading ).toBeFalsy()
         
@@ -64,7 +64,7 @@ describe('Vuex - Pruebas en el Journal Module', () => {
 
         // Expects
         // Entries.lenght = 2
-        expect( journal.entries.length ).toBe( 2 )
+        expect( journal.entries.length ).toBe( 3 )
         // Entries tiene que existir en UpdatedEntry toEqual
         const entry = journal.entries.find( e => e.id === updatedEntry.id )
         
@@ -90,7 +90,7 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         
         // expects
         // entradas === 3
-        expect( entries.length ).toBe( 3 )
+        expect( entries.length ).toBe( 4 )
         // entrada con el id 'ABC-123' exista
         expect( entry.id ).toBe( 'ABC-123' )
         
@@ -101,7 +101,7 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         entry = entries.find( e => e.id === newEntry.id)
         // expects
         // entradas === 2
-        expect( entries.length ).toBe( 2 ) 
+        expect( entries.length ).toBe( 3 ) 
         // entrada con el id 'ABC-123' no debe existir
         expect( entry ).toBeFalsy()
         
@@ -118,7 +118,7 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         const entries = store.getters['journal/getEntriesByTerm']('') 
         const entriesMock = store.getters['journal/getEntriesByTerm']('mock') 
         
-        expect( entries.length ).toBe(2)
+        expect( entries.length ).toBe(3)
         expect( entriesMock ).toEqual([ entry1 ])
         
         // entriesById
@@ -139,6 +139,36 @@ describe('Vuex - Pruebas en el Journal Module', () => {
 
         expect( store.state.journal.entries.length ).toBe(3)
 
+    })
+
+    test('Actions: Update Entry', async () => {
+
+        const store = createVuexStore( journalState )
+
+        const updatedEntry = {
+            date: 1658248711828,
+            "picture": "https://res.cloudinary.com/drelgczps/image/upload/v1658255408/ygwxuwn6nj1pwy76plju.jpg",
+            id: "-N7MJs8HNasey4zAB6zm",
+            text: "Hola Mundo desde mock data",
+            otroCampo: "Hola!!"
+        }
+
+        await store.dispatch('journal/updateEntry', updatedEntry)
+
+        let entries = store.state.journal.entries 
+        
+        expect( entries.length  ).toBe(3)
+
+        expect( 
+            store.state.journal.entries.find( e => e.id === updatedEntry.id )
+         ).toEqual({
+            date: 1658248711828,
+            "picture": "https://res.cloudinary.com/drelgczps/image/upload/v1658255408/ygwxuwn6nj1pwy76plju.jpg",
+            id: "-N7MJs8HNasey4zAB6zm",
+            text: "Hola Mundo desde mock data",
+        })
+        
+        
     })
 
     
