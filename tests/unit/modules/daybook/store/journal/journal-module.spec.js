@@ -25,5 +25,24 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         expect( entries ).toEqual( journalState.entries )
         
     })
+
+    // mutations
+    test('Mutation: set entries', () => {
+        const store = createVuexStore({
+            isLoading: true,
+            entries: []
+        })
+        const journal = store.state.journal
+
+        store.commit('journal/setEntries', journalState.entries)
+        expect( journal.entries.length ).toBe( 2 )
+        
+        store.commit('journal/setEntries', journalState.entries)
+        expect( journal.entries.length ).toBe( 4 )
+
+        expect( journal.isLoading ).toBeFalsy()
+        
+    })
+
     
 })
