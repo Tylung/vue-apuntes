@@ -13,6 +13,7 @@
 import { defineAsyncComponent } from 'vue';
 
 export default {
+  name: 'NoEntrySelected',
   components: {
     FabBtn: defineAsyncComponent(() => import("../components/Float-Btn.vue")),
   },
