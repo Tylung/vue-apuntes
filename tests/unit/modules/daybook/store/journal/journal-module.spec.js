@@ -26,7 +26,8 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         
     })
 
-    // mutations
+    // mutations =====================================
+
     test('Mutation: set entries', () => {
         const store = createVuexStore({
             isLoading: true,
@@ -103,6 +104,34 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         expect( entries.length ).toBe( 2 ) 
         // entrada con el id 'ABC-123' no debe existir
         expect( entry ).toBeFalsy()
+        
+    })
+
+    // getters ====================
+
+    test('Test getEntriesByTerm & getEntryById', () => {
+
+        const store = createVuexStore( journalState )
+
+        const [ entry1, entry2 ] = journalState.entries
+
+        const entries = store.getters['journal/getEntriesByTerm']('') 
+        const entriesMock = store.getters['journal/getEntriesByTerm']('mock') 
+        
+        expect( entries.length ).toBe(2)
+        expect( entriesMock ).toEqual([ entry1 ])
+        
+        // entriesById
+
+        const entryById = store.getters['journal/getEntryById']( entry1.id )
+
+        expect( entryById ).toEqual( entry1 )
+
+    })
+
+    //  Actions =====================
+
+    test('', () => {
         
     })
 
