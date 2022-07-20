@@ -71,5 +71,40 @@ describe('Vuex - Pruebas en el Journal Module', () => {
 
     })
 
+    test('Mutation: AddEntry & DeleteEntry', () => {
+
+        // crear store
+        const store = createVuexStore( journalState )
+
+        const newEntry = {
+            id: 'ABC-123',
+            text: 'Hola Mundo'
+        }
+
+        // addEntry { id: 'ABC-123', text: 'Hola Mundo!' }
+        store.commit( 'journal/addEntry', newEntry )
+        
+        let entries = store.state.journal.entries
+        let entry = entries.find( e => e.id === 'ABC-123' )
+        
+        // expects
+        // entradas === 3
+        expect( entries.length ).toBe( 3 )
+        // entrada con el id 'ABC-123' exista
+        expect( entry.id ).toBe( 'ABC-123' )
+        
+        
+        store.commit( 'journal/deleteEntry', newEntry.id )
+        // deleteEntry id: 'ABC-123'
+        entries = store.state.journal.entries
+        entry = entries.find( e => e.id === newEntry.id)
+        // expects
+        // entradas === 2
+        expect( entries.length ).toBe( 2 ) 
+        // entrada con el id 'ABC-123' no debe existir
+        expect( entry ).toBeFalsy()
+        
+    })
+
     
 })
