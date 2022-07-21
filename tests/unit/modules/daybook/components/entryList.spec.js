@@ -1,44 +1,73 @@
 import {createStore} from 'vuex';
-
-import { getEntriesByTerm } from '@/modules/daybook/store/journal/getters';
-import { journalState } from '../../../mock-data/test-state';
 import { shallowMount } from '@vue/test-utils';
 import EntryList from '@/modules/daybook/components/Entry-List';
+import journal from '@/modules/daybook/store/journal'
+import { journalState  } from '../../../mock-data/test-state';
 
+
+const createVuexStore = ( initialState ) => 
+createStore({
+    modules: {
+        journal: {
+            ...journal,
+            state: { ...initialState }
+        } 
+    }
+})
 
 describe('Pruebas en el EntryList', () => {
 
-    const journalMockModule = {
-        namespaced: true,
-        getters: {
-            getEntriesByTerm,
-        },
-
-        state: () => ({
-            isLoading: false,
-            entries: journalState.entries
-        })
+    const store = createVuexStore( journalState )
+    const mockRouter = {
+        push: jest.fn()
     }
 
-
-    const store =  createStore({
-        modules: {
-            journal: { ...journalMockModule }
-        }
-    })
-
-
-    const wrapper = shallowMount( EntryList, {
-        global: {
-            mocks: {
-                // TODO: $router 
-            },
-            plugins: [store]
-        }
+    let wrapper;
+    
+    beforeEach(() =>  {
+        jest.clearAllMocks()
+        wrapper = shallowMount( EntryList, {
+            global: {
+                mocks: {
+                    $router: mockRouter  
+                },
+                plugins: [store]
+            }
+        })
     })
 
     test('debe de llamar el getEntriesByTerm sin termino y mostrar 3 entradas', () => {
-        console.log(wrapper.html());
+
+        expect( wrapper.findAll('entry-stub').length ).toBe(3)
+        expect( wrapper.html() ).toMatchSnapshot()
+
+    })
+
+
+    test('debe de llamar el getEntriesByTerm y filtrar las entradas', async () => {
+
+        const input = wrapper.find('input')
+
+        await input.setValue('Firebase')
+        // Busca la entrada que contenga Firebase
+
+        expect( wrapper.findAll('entry-stub').length ).toBe(1)
+
+    })
+
+
+    test('el boton de nuevo debe de redireccionar a "new"', () => {
+        
+        wrapper.find('button').trigger('click')
+
+        expect( mockRouter.push )
+            .toHaveBeenCalledWith({ 
+                name: 'entry',
+                params: { 
+                    id: 'new' 
+                } 
+            })
+
     })
     
 })
