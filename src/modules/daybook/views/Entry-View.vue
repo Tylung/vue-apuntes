@@ -128,7 +128,7 @@ export default {
         },
         async saveEntry() {
 
-            new Swal({
+            Swal.fire({
                 title: 'Espere por favor',
                 allowOutsideClick: false
             })
@@ -156,7 +156,7 @@ export default {
             Swal.fire('Guardado', 'Entrada registrada con Exito!', 'success')
         },
         async onDeleteEntry() {
-            // console.log('delete', this.entry);
+
             const { isConfirmed } = await Swal.fire({
                 title: 'Esta seguro?',
                 text: 'Una vez borrado no se puede recuperar',
@@ -165,7 +165,7 @@ export default {
             })
 
             if ( isConfirmed ){
-                new Swal({
+                Swal.fire({
                     title: 'Espere por favor',
                     allowOutsideClick: false
                 })
